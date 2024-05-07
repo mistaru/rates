@@ -1,15 +1,17 @@
 package it.academy.xmlparser.entity;
 
-import it.academy.xmlparser.dto.CurrencyRatesModel;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import it.academy.xmlparser.dto.CurrencyModel;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -25,12 +27,11 @@ public class CurrencyRates {
     @SequenceGenerator(name = "CURRENCY_RATES_SEQ", sequenceName = "CURRENCY_RATES_SEQ", allocationSize = 1)
     @GeneratedValue(generator = "CURRENCY_RATES_SEQ")
     Long id;
-
-    Timestamp createDate;
-
+    LocalDateTime createDate;
     String name;
-
-    Timestamp currencyDate;
+    LocalDate date;
+    @ManyToMany
+    List<Currency> currencyModelList;
 
     // Дальше нужно самим дополнить поля
 }
